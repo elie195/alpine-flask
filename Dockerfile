@@ -3,8 +3,10 @@ MAINTAINER Christian Gatzlaff <cgatzlaff@gmail.com>
 
 # basic flask environment
 RUN apk add --no-cache bash git nginx uwsgi uwsgi-python py2-pip \
+           git alpine-sdk python2-dev libffi-dev openssl-dev \
 	&& pip2 install --upgrade pip \
-	&& pip2 install flask
+	&& pip2 install flask \
+        && python -m pip install pip==9.0.3
 
 # application folder
 ENV APP_DIR /app
@@ -16,6 +18,10 @@ RUN mkdir ${APP_DIR} \
 	&& chmod 777 /root/ -R
 VOLUME ${APP_DIR}
 WORKDIR ${APP_DIR}
+
+# install pip requirements
+COPY requirements.txt /app/requirements.txt
+RUN pip2 install -r requirements.txt
 
 # expose web server port
 # only http, for ssl use reverse proxy
