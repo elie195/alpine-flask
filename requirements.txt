@@ -1,3 +1,8 @@
 Flask
-flask-ask
+-e git://github.com/elie195/flask-ask.git@206308610d523ff1a244424b4f09d03140f55c86#egg=flask-ask
 requests
+redis
+geopy
+babel
+raven[flask]
+raven
